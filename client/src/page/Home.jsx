@@ -1,7 +1,24 @@
+//32.42
+
 import React,{useState , useEffect} from 'react';
 import { Loader, Card, FormField } from '../components';
 
-const Home = () => {  
+const Rendercards = ({data , title})=>{
+  if(data?.length > 0){
+    return data.map((post) => <card key={post._id} {...post} />)
+  }
+  
+  return(
+    <h2 className="mt-5 font-bold text-[#6449ff] text-xl uppercase">
+        {title}
+    </h2>
+  )
+
+}   
+
+
+
+const Home = () => {   
   const [loading , setLoading] = useState(false);
   const [allPosts, setAllPosts] = useState(null);
   const [searchText , setSearchText] = useState('');
@@ -28,6 +45,20 @@ const Home = () => {
                   Showing results for <span className="text=#222328">{searchText}</span>
                 </h2>
               )}
+              <div className="grid lg:grid-cols-4 sm:grid-cols-3 xs:grid-cols-2 grid-cols-1 gap-3">
+                  {searchText ? (
+                    <Rendercards
+                        data={[]}
+                        title ="No search results found"
+                    />
+                  ):(
+                      <Rendercards 
+                          data={[]}
+                          title = "No post found"
+                      />
+
+                  )}
+              </div>
             </>
           )
         
